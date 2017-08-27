@@ -1,0 +1,10 @@
+import { createAction } from 'redux-actions';
+
+export const APP_TITLE = createAction('APP_TITLE');
+
+export const APP_STATE = 'APP_STATE';
+
+export const UPDATE_FORM_FIELD_VALUE = 'UPDATE_FORM_FIELD_VALUE';
+export const SUBMIT_NEW_KONTRAHENT_START = 'SUBMIT_NEW_KONTRAHENT_START';
+export const SUBMIT_NEW_KONTRAHENT_END = 'SUBMIT_NEW_KONTRAHENT_END';
+export const SUBMIT_NEW_KONTRAHENT_ERROR = 'SUBMIT_NEW_KONTRAHENT_ERROR';
