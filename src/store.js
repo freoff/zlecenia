@@ -7,7 +7,9 @@ import { appReducer as app } from './reducers';
 
 import kontrahent from './reducers/kontrahent';
 
-const middlewares = applyMiddleware(thunk, logger);
+const isTest = process.env.NODE_ENV === 'test';
+console.log(`isTest ${isTest}`);
+const middlewares = isTest ? applyMiddleware(thunk) : applyMiddleware(thunk, logger);
 const reducers = combineReducers({ app, kontrahent });
 const store = createStore(reducers, middlewares);
 

@@ -4,7 +4,6 @@ import chai from 'chai';
 import jest from 'jest';
 import kontrahent from './kontrahent';
 import { UPDATE_FORM_FIELD_VALUE } from '../actionsCreators';
-import assert from 'assert';
 
 const e = chai.expect;
 
