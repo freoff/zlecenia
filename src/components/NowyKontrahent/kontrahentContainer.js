@@ -14,4 +14,10 @@ export const mapDispatchToProps = {
 
     fetch('', { body: getState().kontrahent.kontrahentForm, method: 'PUT' });
   },
+  validate: ({ target: { name: fieldName, value } }, ...validateFunction) => (dispatch, getState) => {
+    console.log(`im validating ${fieldName} value is ${value}`);
+    for (let fn of validateFunction) {
+      if validateFunction.length
+    }
+  },
 };
