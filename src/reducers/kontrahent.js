@@ -1,12 +1,17 @@
 import { handleActions } from 'redux-actions';
-import { UPDATE_FORM_FIELD_VALUE, VALIDATION_ERROR } from '../actionsCreators';
+import {
+  UPDATE_FORM_FIELD_VALUE,
+  VALIDATION_ERROR,
+  REMOVE_ERROR_FOR,
+  CLEAR_FORM,
+} from '../actionsCreators';
 const initialState = {
   kontrahentForm: {},
   current: '',
   kontrahentFormErrors: {},
   /*
   kontrahentFormErrors: {
-    [fielName]: [...msg]
+    [fielName]: msg: String
   }
   */
 };
@@ -25,9 +30,21 @@ const kontrahent = handleActions(
       ...state,
       kontrahentFormErrors: {
         ...state.kontrahentFormErrors,
-        
-         [fieldName]: [...state.kontrahentFormErrors[fieldName], msg],
+        [fieldName]: msg,
       },
+    }),
+    REMOVE_ERROR_FOR: (state, action) => {
+      const rest = { ...state.kontrahentFormErrors };
+      delete rest[action.payload];
+      return {
+        ...state,
+        kontrahentFormErrors: {
+          ...rest,
+        },
+      };
+    },
+    CLEAR_FORM: state => ({
+      ...initialState,
     }),
   },
   initialState,
