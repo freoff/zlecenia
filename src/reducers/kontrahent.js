@@ -4,12 +4,16 @@ const initialState = {
   kontrahentForm: {},
   current: '',
   kontrahentFormErrors: {},
-
+  /*
+  kontrahentFormErrors: {
+    [fielName]: [...msg]
+  }
+  */
 };
-const kontrahentFormReducer = (state, {payload: {field, value}}) => ({
+const kontrahentFormReducer = (state, { payload: { field, value } }) => ({
   ...state,
-  [field]: value
-})
+  [field]: value,
+});
 
 const kontrahent = handleActions(
   {
@@ -17,11 +21,14 @@ const kontrahent = handleActions(
       ...state,
       kontrahentForm: kontrahentFormReducer(state.kontrahentForm, action),
     }),
-    VALIDATION_ERROR: (state, action) => ({
+    VALIDATION_ERROR: (state, { payload: { fieldName, msg } }) => ({
       ...state,
-      kontrahentFormError: { [action.meta.fieldName]: {errMsg: []} }
-    })
-
+      kontrahentFormErrors: {
+        ...state.kontrahentFormErrors,
+        
+         [fieldName]: [...state.kontrahentFormErrors[fieldName], msg],
+      },
+    }),
   },
   initialState,
 );

@@ -23,7 +23,7 @@ const KontrahentForm = props => (
       <div className="form-group">
         <label htmlFor="nazwa">Nazwa firmy:</label>
         <textarea
-          id="nazwa"
+          id="nazwa" 
           name="nazwa"
           className="form-control"
           onBlur={e => props.validate(e, 'Minimalna dlugosc 10', length(10), notEmpty)}

@@ -21,10 +21,7 @@ export const mapDispatchToProps = {
     validateFunction.forEach(validator => {
       if (!validator(value)) {
         dispatch(
-          createAction(VALIDATION_ERROR, null, () => ({
-            fieldName,
-            msg: 'error',
-          }))(new Error(msg)),
+          createAction(VALIDATION_ERROR)({fieldName, msg}),
         );
       }
     });
