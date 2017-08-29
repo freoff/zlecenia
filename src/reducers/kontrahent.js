@@ -1,9 +1,9 @@
 import { handleActions } from 'redux-actions';
-import { UPDATE_FORM_FIELD_VALUE, SUBMIT_NEW_KONTRAHENT_ } from '../actionsCreators';
+import { UPDATE_FORM_FIELD_VALUE, VALIDATION_ERROR } from '../actionsCreators';
 const initialState = {
   kontrahentForm: {},
   current: '',
-
+  kontrahentFormErrors: {},
 
 };
 const kontrahentFormReducer = (state, {payload: {field, value}}) => ({
@@ -17,6 +17,10 @@ const kontrahent = handleActions(
       ...state,
       kontrahentForm: kontrahentFormReducer(state.kontrahentForm, action),
     }),
+    VALIDATION_ERROR: (state, action) => ({
+      ...state,
+      kontrahentFormError: { [action.meta.fieldName]: {errMsg: []} }
+    })
 
   },
   initialState,

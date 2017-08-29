@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { mapDispatchToProps } from './kontrahentContainer';
+import { length, minmax, notEmpty } from '../../validator';
 
 const KontrahentForm = props => (
   <div>
@@ -13,8 +15,9 @@ const KontrahentForm = props => (
           name="nip"
           className="form-control"
           placeholder="Nip firmy"
-          onBlur={props.validate}
+          onBlur={e => props.validate(e, 'Nip nie poprawny format to xxx-xxx-xx-xx', length(10))}
           onChange={props.updateField}
+
         />
       </div>
       <div className="form-group">
@@ -23,13 +26,19 @@ const KontrahentForm = props => (
           id="nazwa"
           name="nazwa"
           className="form-control"
-          onBlur={props.validate}
-          onChange={props.onUpdateField}
+          onBlur={e => props.validate(e, 'Minimalna dlugosc 10', length(10), notEmpty)}
+          onChange={props.updateField}
 
         />
       </div>
     </form>
   </div>
 );
-
-export default connect(null,mapDispatchToProps)(KontrahentForm);
+KontrahentForm.propTypes = {
+  validate: PropTypes.func,
+  updateField: PropTypes.func.isRequired,
+};
+KontrahentForm.defaultProps = {
+  validate: () => {},
+};
+export default connect(null, mapDispatchToProps)(KontrahentForm);

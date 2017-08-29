@@ -6,23 +6,26 @@ import kontrahent from './kontrahent';
 import { UPDATE_FORM_FIELD_VALUE } from '../actionsCreators';
 
 const e = chai.expect;
-
 describe('Reducer kontrahent', () => {
+  const EXPECTED_DEFAULT_STATE = {
+    kontrahentForm: {},
+    current: '',
+    kontrahentFormErrors: {},
+  };
   it('should return default state ', () => {
-    const EXPECTED_DEFAULT_STATE = {
-      kontrahentForm: {},
-      current: '',
+    const EXPECTED_STATE = {
+      ...EXPECTED_DEFAULT_STATE,
     };
-    expect(kontrahent).toBeInstanceOf(Function);
 
+    expect(kontrahent).toBeInstanceOf(Function);
     const store = createStore(kontrahent);
     store.dispatch(createAction('INIT')(null));
-    expect(store.getState()).toEqual(EXPECTED_DEFAULT_STATE);
+    expect(store.getState()).toEqual(EXPECTED_STATE);
   });
-  it('should update/ crete form field', () => {
+  it('should update/create form field', () => {
     const EXPECTED_STATE = {
+      ...EXPECTED_DEFAULT_STATE,
       kontrahentForm: { field: 'change2', field3: 'change3' },
-      current: '',
     };
     const store = createStore(kontrahent);
     store.dispatch(createAction(UPDATE_FORM_FIELD_VALUE)({ field: 'field', value: 'change1' }));

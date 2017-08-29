@@ -4,6 +4,7 @@ import {
   SUBMIT_NEW_KONTRAHENT_START,
   SUBMIT_NEW_KONTRAHENT_END,
   SUBMIT_NEW_KONTRAHENT_ERROR,
+  VALIDATION_ERROR,
 } from '../../actionsCreators';
 
 export const mapDispatchToProps = {
@@ -14,10 +15,18 @@ export const mapDispatchToProps = {
 
     fetch('', { body: getState().kontrahent.kontrahentForm, method: 'PUT' });
   },
-  validate: ({ target: { name: fieldName, value } }, ...validateFunction) => (dispatch, getState) => {
-    console.log(`im validating ${fieldName} value is ${value}`);
-    for (let fn of validateFunction) {
-      if validateFunction.length
-    }
+  validate: (e, msg, ...validateFunction) => (dispatch, getState) => {
+    if (validateFunction[0].constructor === Event) return;
+    const { target: { name: fieldName, value } } = e;
+    validateFunction.forEach(validator => {
+      if (!validator(value)) {
+        dispatch(
+          createAction(VALIDATION_ERROR, null, () => ({
+            fieldName,
+            msg: 'error',
+          }))(new Error(msg)),
+        );
+      }
+    });
   },
 };

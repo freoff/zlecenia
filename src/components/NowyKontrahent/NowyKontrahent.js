@@ -10,5 +10,3 @@ const NowyKontrahent = props =>
   </div>);
 
 export default connect(null, null)(NowyKontrahent);
-
-
