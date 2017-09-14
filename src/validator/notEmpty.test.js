@@ -1,3 +1,4 @@
+// @flow
 import notEmpty from './notEmpty';
 
 const multiLineEmptySting = `

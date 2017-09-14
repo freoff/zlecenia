@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { mapDispatchToProps, mapStateToProps } from './kontrahentContainer';
 import { length, minmax, notEmpty } from '../../validator';
+
 import Error from './Error';
+import ListaTelefonow from './ListaTelefonow';
 
 const fieldHasError = (fieldName, kontrahentFormErrors) =>
   kontrahentFormErrors[fieldName] !== undefined;
 
-const KontrahentForm = props =>
-  (<div onFocus={e => console.log(props)}>
+const KontrahentForm = props => (
+  <div onFocus={e => console.log(props)} >
     <form className="form" id="nowyKontrahentForm">
       <fieldset className="field">
         <legend>Nowy Kontrahent</legend>
@@ -25,14 +27,15 @@ const KontrahentForm = props =>
             name="nip"
             className="form-control"
             placeholder="Nip firmy"
-            onBlur={e => props.validate(e, 'Nip nie poprawny format to xxx-xxx-xx-xx', length(10))}
+            onBlur={e => props.validate(e, 'Nip nie poprawny dlugosc 10 znakow, TODO: format to xxx-xxx-xx-xx', length(10))}
             onChange={props.updateField}
           />
           <Error forField="nip" formErrors={props.kontrahentFormErrors} />
         </div>
-        <div className={`form-group ${fieldHasError('nazwa', props.kontrahentFormErrors)
-          ? 'has-error'
-          : ''}`}
+        <div
+          className={`form-group ${fieldHasError('nazwa', props.kontrahentFormErrors)
+            ? 'has-error'
+            : ''}`}
         >
           <label htmlFor="nazwa">Nazwa firmy:</label>
           <textarea
@@ -44,9 +47,11 @@ const KontrahentForm = props =>
           />
           <Error forField="nazwa" formErrors={props.kontrahentFormErrors} />
         </div>
+        <ListaTelefonow />
       </fieldset>
     </form>
-  </div>);
+  </div>
+);
 
 KontrahentForm.defaultProps = {
   validate: () => {},
@@ -55,7 +60,7 @@ KontrahentForm.defaultProps = {
 KontrahentForm.propTypes = {
   validate: PropTypes.func,
   updateField: PropTypes.func.isRequired,
-  kontrahentFormErrors: PropTypes.object.isRequired,// eslint-disable-line
+  kontrahentFormErrors: PropTypes.object.isRequired, // eslint-disable-line
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(KontrahentForm);

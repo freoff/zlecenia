@@ -22,7 +22,7 @@ export const mapDispatchToProps = {
   ) => {
     if (validateFunction[0].constructor === Event) return;
     let isError = false;
-    validateFunction.forEach(validator => {
+    validateFunction.forEach((validator) => {
       if (!validator(value)) {
         isError = true;
       }

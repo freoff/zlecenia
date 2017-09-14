@@ -9,12 +9,12 @@ export default class Dropdown extends Component {
     };
     this.toggleMenu = this.toggleMenu.bind(this);
   }
-  toggleMenu () {
+  toggleMenu() {
     this.setState({ display: this.state.display === 'none' ? 'block' : 'none' });
-  };
+  }
   printMenuItem = () => {
     const result = [];
-    for (let [name, path] of this.props.menu.entries()) {
+    for (const [name, path] of this.props.menu.entries()) {
       result.push(
         <li key={Math.random()}>
           <NavLink onClick={this.toggleMenu} to={path}>

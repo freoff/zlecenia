@@ -1,4 +1,8 @@
 module.exports = {
+  "parser": "babel-eslint",
+  "plugins": [
+    "flowtype"
+  ],
 	"parserOptions": {
         "ecmaVersion": 6,
         "sourceType": "module",

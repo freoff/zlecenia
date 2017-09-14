@@ -1,12 +1,19 @@
+// @flow
+
 import { handleActions } from 'redux-actions';
 import {
   UPDATE_FORM_FIELD_VALUE,
   VALIDATION_ERROR,
   REMOVE_ERROR_FOR,
   CLEAR_FORM,
+  ADD_TELEPHONE,
+  REMOVE_TELEPHONE,
 } from '../actionsCreators';
-const initialState = {
-  kontrahentForm: {},
+
+export const initialState = {
+  kontrahentForm: {
+    telefony: {}, // {nazwa<string>: numer<strign>}
+  },
   current: '',
   kontrahentFormErrors: {},
   /*
@@ -19,6 +26,7 @@ const kontrahentFormReducer = (state, { payload: { field, value } }) => ({
   ...state,
   [field]: value,
 });
+
 
 const kontrahent = handleActions(
   {
@@ -46,8 +54,32 @@ const kontrahent = handleActions(
     CLEAR_FORM: state => ({
       ...initialState,
     }),
+    ADD_TELEPHONE: (state, action) => ({
+      ...state,
+      kontrahentForm: { ...state.kontrahentForm,
+        telefony: { ...state.kontrahentForm.telefony,
+          [action.payload.nazwa]: action.payload.numer,
+        },
+      },
+    }),
+    REMOVE_TELEPHONE: (state, action) => {
+      const rest = { ...state.kontrahentForm.telefony };
+      delete rest[action.payload];
+      return {
+        ...state,
+        kontrahentForm: {
+          ...state.kontrahentForm,
+          telefony: { ...rest,
+          },
+        },
+      }
+      ;
+    }
+    ,
+
   },
   initialState,
+  /* eslint-disable-next-line */
 );
 
 export default kontrahent;

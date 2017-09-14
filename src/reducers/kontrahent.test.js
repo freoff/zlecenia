@@ -2,16 +2,18 @@ import { createStore, combineReducers } from 'redux';
 import { createAction, handleAction } from 'redux-actions';
 import chai from 'chai';
 import jest from 'jest';
-import kontrahent from './kontrahent';
-import { UPDATE_FORM_FIELD_VALUE, VALIDATION_ERROR, REMOVE_ERROR_FOR } from '../actionsCreators';
+import kontrahent, { initialState } from './kontrahent';
+import {
+  UPDATE_FORM_FIELD_VALUE,
+  VALIDATION_ERROR,
+  REMOVE_ERROR_FOR,
+  ADD_TELEPHONE,
+  REMOVE_TELEPHONE,
+} from '../actionsCreators';
 
 const e = chai.expect;
 describe('Reducer kontrahent', () => {
-  const EXPECTED_DEFAULT_STATE = {
-    kontrahentForm: {},
-    current: '',
-    kontrahentFormErrors: {},
-  };
+  const EXPECTED_DEFAULT_STATE = initialState;
   it('should return default state ', () => {
     const EXPECTED_STATE = {
       ...EXPECTED_DEFAULT_STATE,
@@ -25,7 +27,11 @@ describe('Reducer kontrahent', () => {
   it('should update/create form field', () => {
     const EXPECTED_STATE = {
       ...EXPECTED_DEFAULT_STATE,
-      kontrahentForm: { field: 'change2', field3: 'change3' },
+      kontrahentForm: {
+        ...EXPECTED_DEFAULT_STATE.kontrahentForm,
+        field: 'change2',
+        field3: 'change3',
+      },
     };
     const store = createStore(kontrahent);
     store.dispatch(createAction(UPDATE_FORM_FIELD_VALUE)({ field: 'field', value: 'change1' }));
@@ -59,7 +65,6 @@ describe('Reducer kontrahent', () => {
     const POST_REMOVE_EXPECTED_STATE = {
       ...EXPECTED_DEFAULT_STATE,
       kontrahentFormErrors: {
-
         field2: 'error2',
       },
     };
@@ -69,5 +74,25 @@ describe('Reducer kontrahent', () => {
     expect(store.getState()).toEqual(PRE_REMOVE_EXPECTED_STATE);
     store.dispatch(createAction(REMOVE_ERROR_FOR)('field1'));
     expect(store.getState()).toEqual(POST_REMOVE_EXPECTED_STATE);
+  });
+  it('should add 2 phone number and then remove it', () => {
+    const STATE_AFTER = {
+      ...EXPECTED_DEFAULT_STATE,
+      kontrahentForm: {
+        ...EXPECTED_DEFAULT_STATE.kontrahentForm,
+        telefony: {
+          ...EXPECTED_DEFAULT_STATE.kontrahentForm.telefony,
+          numer1: 'numerONE',
+          numer2: 'numerTWO',
+        },
+      },
+    };
+    const store = createStore(kontrahent);
+    store.dispatch(createAction(ADD_TELEPHONE)({ nazwa: 'numer1', numer: 'numerONE' }));
+    store.dispatch(createAction(ADD_TELEPHONE)({ nazwa: 'numer2', numer: 'numerTWO' }));
+    expect(store.getState()).toEqual(STATE_AFTER);
+    store.dispatch(createAction(REMOVE_TELEPHONE)('numer2'));
+    store.dispatch(createAction(REMOVE_TELEPHONE)('numer1'));
+    expect(store.getState()).toEqual(EXPECTED_DEFAULT_STATE);
   });
 });

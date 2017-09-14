@@ -1,19 +1,9 @@
-/**
- * Function check if value is between min and max included both.
- *
- * @param {Number} min
- * @param {Number} max
- * @returns {Boolean}
- */
-const valueValidator = (min, max, msg) => (value) => {
-  let result;
-  if (max === undefined || max === null) {
-    result = value >= min;
-  } else {
-    result = value >= min && value <= max;
-  }
+// @flow
 
-  return result;
+const valueValidator = (min: number, max?: number) => (value: number) => {
+  if (max === undefined || max === null) {
+    return value >= min;
+  } return (value >= min && value <= max);
 };
 
 export default valueValidator;

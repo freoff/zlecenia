@@ -3,14 +3,14 @@ const fields = {
   id: 'nip',
   label: 'Nip:'
   tagProps: {
-    placeholder='Nip firmy'
+    placeholder'Nip firmy'
   },
   specialTagProps: {},
 };
 
 /**
- * 
- * @param {Array} fields 
+ *
+ * @param {Array} fields
  */
 const createForm = (fields, onBlur, onChange, stateKontrahentFormErrors) => {
   fields.map((field) => {
@@ -27,5 +27,4 @@ const createForm = (fields, onBlur, onChange, stateKontrahentFormErrors) => {
   });
 };
 
-const fieldHasError = (fieldName, kontrahentFormErrors) =>
-kontrahentFormErrors[fieldName] !== undefined;
+const fieldHasError = (fieldName, kontrahentFormErrors) => kontrahentFormErrors[fieldName] !== undefined;

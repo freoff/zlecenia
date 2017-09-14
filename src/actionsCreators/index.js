@@ -1,3 +1,4 @@
+// @flow
 import { createAction } from 'redux-actions';
 
 export const APP_TITLE = createAction('APP_TITLE');
@@ -11,3 +12,5 @@ export const SUBMIT_NEW_KONTRAHENT_ERROR = 'SUBMIT_NEW_KONTRAHENT_ERROR';
 export const VALIDATION_ERROR = 'VALIDATION_ERROR';
 export const REMOVE_ERROR_FOR = 'REMOVE_ERROR_FOR';
 export const CLEAR_FORM = 'CLEAR_FORM';
+export const ADD_TELEPHONE = 'ADD_TELEPHONE';
+export const REMOVE_TELEPHONE = 'REMOVE_TELEPHONE';
